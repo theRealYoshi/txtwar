@@ -10,6 +10,6 @@ class PhoneNumber < ActiveRecord::Base
 
   #https://www.twilio.com/lookup for phone number validation
 
-  lookup_client = Twilio::REST::LookupsClient.new(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+  #lookup_client = Twilio::REST::LookupsClient.new(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 end
