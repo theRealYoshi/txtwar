@@ -9,8 +9,7 @@ $(function(){
     render: function(){
       return (
           <div>
-            dajdalkgjdaklfjdsa
-            //{this.props.children}
+            {this.props.children}
           </div>
       );
     }
@@ -18,7 +17,8 @@ $(function(){
 
 
   var routes = (
-      <Route component={App}>
+      <Route path="/" component={App}>
+        <IndexRoute component={TxtWarForm} />
       </Route>
     );
 
