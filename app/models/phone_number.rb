@@ -33,20 +33,14 @@ class PhoneNumber < ActiveRecord::Base
 
   private
 
-    def twilio_lookup
-      lookup_client = Twilio::REST::LookupsClient.new(ENV["twilio_account_sid"], ENV["twilio_auth_token"])
-      begin
-        response = lookup_client.phone_numbers.get(phone_number)
-        response.phone_number
-        return true
-      rescue => e
-        if e.code == 20404
-          #only if the code doesn't exist
-          errors.add("twilio", "is not found in phone number database")
-          return false
-        else
-          #raise e
-        end
-      end
+  def self.twilio_lookup(phone_number)
+    lookup_client = Twilio::REST::LookupsClient.new(ENV["twilio_account_sid"], ENV["twilio_auth_token"])
+    begin
+      response = lookup_client.phone_numbers.get(phone_number)
+      response.phone_number
+      return true
+    rescue => e
+      return false
     end
+  end
 end

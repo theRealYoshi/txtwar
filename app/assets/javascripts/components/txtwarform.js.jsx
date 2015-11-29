@@ -29,7 +29,7 @@ var TxtWarForm = React.createClass({
 		if (this.state.inputVal.length === 10){
 	    var debounced = debounce(function(){
 	      console.log(this.state.inputVal);
-				TwilioUtil.validateNumber(this.state.inputVal);
+				ApiUtil.validateNumber({phone_number: this.state.inputVal});
 	    }.bind(this), 1500)
 			debounced();
 		}
@@ -56,7 +56,7 @@ var TxtWarForm = React.createClass({
             className='search-query'
             id='search-input'
             onChange={this._handleInput}
-            placeholder="Search Tag Name Or Album Name"
+            placeholder="(000)-000-0000"
             value={this.state.inputVal}/>
         </form>
 				<div className="keypad">
