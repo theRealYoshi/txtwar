@@ -9,13 +9,35 @@ class PhoneNumber < ActiveRecord::Base
                                      message: "must be all numbers"}
   #validate :twilio_lookup have this validation when doing the keystroke lookup
 
+  def two_factor_auth
+  end
+
+  def twilio_received_message
+    #receive and store in database or other model
+  end
+
+
+  def twilio_remind
+    # send out using client and twilio account
+    client = Twilio::REST::Client.new(ENV["twilio_account_sid"], ENV["twilio_auth_token"])
+    client.account.messages.create(
+       :from => from,
+       :to => key,
+       :body => "Text back your crush now!"
+     )
+  end
+
+  def phone_number_exists?
+  end
+
+
   private
 
     def twilio_lookup
       lookup_client = Twilio::REST::LookupsClient.new(ENV["twilio_account_sid"], ENV["twilio_auth_token"])
       begin
         response = lookup_client.phone_numbers.get(phone_number)
-        response.phone_number #if invalid, throws an exception. If valid, no problems.
+        response.phone_number
         return true
       rescue => e
         if e.code == 20404
