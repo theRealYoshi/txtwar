@@ -52,4 +52,23 @@ describe PhoneNumber, type: :model do
     end
   end
 
+  describe 'error handling' do
+    let(:wrong_length) {PhoneNumber.create(phone_number: "+1222333444", delay_time:5)}
+    let(:wrong_length2) {PhoneNumber.create(phone_number: "+1222333444444", delay_time:5)}
+    let(:wrong_format) {PhoneNumber.create(phone_number: "+1222333aaaa", delay_time:5)}
+    let(:wrong_delay_format) {PhoneNumber.create(phone_number: "+12223334444", delay_time:"five")}
+
+    it 'gives appropriate error if number is too short or long' do
+      wrong_length.valid?
+      wrong_length2.valid?
+      expect(wrong_length.errors.messages[:phone_number]).to include("is the wrong length (should be 12 characters)")
+      expect(wrong_length2.errors.messages[:phone_number]).to include("is the wrong length (should be 12 characters)")
+    end
+
+    it 'gives appropriate error if number is in wrong format' do
+      wrong_delay_format.valid?
+      expect(wrong_delay_format.errors[:delay_time]).to include("only numbers allowed")
+    end
+  end
+
 end

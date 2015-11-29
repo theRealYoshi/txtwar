@@ -7,7 +7,7 @@ class PhoneNumber < ActiveRecord::Base
                                     too_long: "must be valid phone number"}
   validates :phone_number, format: { with: /[+][1]\d{10}/,
                                      message: "must be all numbers"}
-  validate :twilio_lookup
+  #validate :twilio_lookup have this validation when doing the keystroke lookup
 
   private
 
