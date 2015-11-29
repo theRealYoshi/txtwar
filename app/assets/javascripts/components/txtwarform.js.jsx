@@ -24,18 +24,33 @@ var TxtWarForm = React.createClass({
   },
   _handleInput: function(event){
     event.preventDefault();
-    debounce(function(event){
-      var number = event.currentTarget.value;
-      this.setState({ inputVal: number});
-      console.log(this.state.inputVal);
-    }, 250)
-    
-      //debounce and then do callback for twilio look
+		var number = event.currentTarget.value;
+		this.setState({ inputVal: number});
+		if (this.state.inputVal.length === 10){
+	    var debounced = debounce(function(){
+	      console.log(this.state.inputVal);
+				TwilioUtil.validateNumber(this.state.inputVal);
+	    }.bind(this), 1500)
+			debounced();
+		}
   },
+	_addToState: function(event){
+		event.preventDefault();
+		var num = event.currentTarget.value;
+		this.setState({inputVal: this.state.inputVal + num});
+	},
+	_deleteFromState: function(event){
+		event.preventDefault();
+		this.setState({inputVal: this.state.inputVal.slice(0, -1)})
+	},
   render: function(){
+		var numArr = new Array(10);
+		for (var i = 0; i < numArr.length; i++){
+			numArr[i] = i;
+		}
     return (
       <div className="form">
-        <h1>Submit a valid number</h1>
+        <h1>Valid number</h1>
         <form className="phone-number-submit" onSubmit={this._handleSubmit}>
           <input
             className='search-query'
@@ -44,6 +59,18 @@ var TxtWarForm = React.createClass({
             placeholder="Search Tag Name Or Album Name"
             value={this.state.inputVal}/>
         </form>
+				<div className="keypad">
+					{
+						numArr.map(function(num){
+							return <button type="button"
+														 value={num}
+														 onClick={this._addToState}>
+														{num}
+										</button>;
+						}.bind(this))
+					}
+					<button type="button" onClick={this._deleteFromState}>Delete</button>
+				</div>
       </div>
     );
   }
