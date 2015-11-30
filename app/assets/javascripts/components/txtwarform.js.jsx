@@ -26,7 +26,7 @@ var TxtWarForm = React.createClass({
     event.preventDefault();
 		var number = event.currentTarget.value;
 		this.setState({ inputVal: number});
-		if (this.state.inputVal.length === 10){
+		if (this.state.inputVal.length === 11){
 	    var debounced = debounce(function(){
 	      console.log(this.state.inputVal);
 				ApiUtil.validateNumber({phone_number: this.state.inputVal});
@@ -44,7 +44,7 @@ var TxtWarForm = React.createClass({
 		this.setState({inputVal: this.state.inputVal.slice(0, -1)})
 	},
   render: function(){
-		var numArr = new Array(10);
+		var numArr = new Array(11);
 		for (var i = 0; i < numArr.length; i++){
 			numArr[i] = i;
 		}
@@ -53,8 +53,8 @@ var TxtWarForm = React.createClass({
         <h1>Valid number</h1>
         <form className="phone-number-submit" onSubmit={this._handleSubmit}>
           <input
-            className='search-query'
-            id='search-input'
+            type="text"
+						maxLength="10"
             onChange={this._handleInput}
             placeholder="(000)-000-0000"
             value={this.state.inputVal}/>

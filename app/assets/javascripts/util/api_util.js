@@ -4,15 +4,19 @@ ApiUtil = {
       url: '/api/twilio_lookup',
       type: 'GET',
       data: phoneNumber,
-      success: function(result){
-        console.log(result);
+      success: function(number){
+        console.log(number);
+        //update store with number
+      },
+      error: function(){
+        console.log("invalid");
       }
     });
   },
-  fetchGifs: function(param, tagSearch){
+  saveNumber: function(phoneNumber){
     $.ajax({
       url: '/api/gifs',
-      type: 'GET',
+      type: 'POST',
       data: param,
       success: function(gifs){
         if (tagSearch){

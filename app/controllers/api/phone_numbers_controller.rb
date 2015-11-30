@@ -8,10 +8,9 @@ class Api::PhoneNumbersController < ApplicationController
 
   def twilio_lookup
      if PhoneNumber.twilio_lookup(params[:phone_number])
-       puts "valid number"
+       render json: true
      else
-       puts "invalid number"
+       render json: false
      end
-     #add jbuilder callback
   end
 end
