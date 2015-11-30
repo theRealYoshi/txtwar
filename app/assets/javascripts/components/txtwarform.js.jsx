@@ -20,6 +20,8 @@ var TxtWarForm = React.createClass({
   },
   _handleSubmit: function(){
     console.log("fjdakljfkdl");
+		ApiUtil.validateNumber({phone_number: this.state.inputVal});
+		
     // api util and then update the store
   },
   _handleInput: function(event){

@@ -18,12 +18,9 @@ ApiUtil = {
       url: '/api/gifs',
       type: 'POST',
       data: param,
-      success: function(gifs){
-        if (tagSearch){
-          ApiActions.receiveTagSearch(gifs);
-        } else {
-          ApiActions.receiveAll(gifs);
-        }
+      success: function(phoneNumber){
+        console.log(phoneNumber);
+        ApiActions.receiveSingleNumber(phoneNumber);
       }
     });
   }
